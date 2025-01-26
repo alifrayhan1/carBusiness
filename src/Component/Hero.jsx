@@ -20,6 +20,7 @@ function Hero() {
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [startX, setStartX] = useState(0);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -33,10 +34,25 @@ function Hero() {
     );
   };
 
+  const handelTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+  };
+  const handelTouchEnd = (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (startX- endX > 50) {
+      handleNext();
+    }else if (startX-endX>-50){
+      handlePrev();
+    }
+  }
+
   return (
     <section>
       <div className="h-screen">
-        <div key={carouselData[currentIndex].heading2} className="flex flex-col justify-center items-center space-y-5 h-full">
+        <div key={carouselData[currentIndex].heading2} className="flex flex-col justify-center items-center space-y-5 h-full"
+        onTouchStart={handelTouchStart}
+        onTouchEnd={handelTouchEnd}
+        >
           <h6 className="text-gray-500 text-xs">
             {carouselData[currentIndex].heading1}
           </h6>
