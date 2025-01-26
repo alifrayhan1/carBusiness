@@ -41,7 +41,7 @@ function Hero() {
     const endX = e.changedTouches[0].clientX;
     if (startX- endX > 50) {
       handleNext();
-    }else if (startX-endX>-50){
+    }else if (startX-endX < -50){
       handlePrev();
     }
   }
